@@ -15,7 +15,7 @@
   "globals": {
     "page": "readonly"
   },
-  "ignorePatterns": ["dist/*.js"],
+  "ignorePatterns": ["dist/*.js", "webpack.config.js"],
   "rules": {
     "indent": ["error", 4],
     "semi": ["error", "always"]
