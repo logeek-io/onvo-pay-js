@@ -4,6 +4,7 @@
   "description": "Loading wrapper and TypeScript types for the ONVO JS SDK",
   "main": "index.js",
   "scripts": {
+    "lint": "eslint .",
     "build": "webpack --mode production",
     "commit": "cz -a",
     "prepare": "husky install"
