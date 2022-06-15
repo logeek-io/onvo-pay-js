@@ -1,3 +1,10 @@
+## [1.2.2](https://github.com/logeek-io/onvo-pay-js-sdk/compare/v1.2.1...v1.2.2) (2022-06-15)
+
+
+### Bug Fixes
+
+* **readme:** fix indentation ([cdbb71a](https://github.com/logeek-io/onvo-pay-js-sdk/commit/cdbb71a34c65ed91f58f7df2d2e5fd04a2abeb10))
+
 ## [1.2.1](https://github.com/logeek-io/onvo-pay-js-sdk/compare/v1.2.0...v1.2.1) (2022-06-15)
 
 
