@@ -88,22 +88,22 @@ import { loadScript } from "@onvo/onvo-pay-js";
 let onvo;
 
 try {
-    onvo = await loadScript();
+	onvo = await loadScript();
 } catch (error) {
-    console.error("failed to load the ONVO JS SDK script", error);
+	console.error("failed to load the ONVO JS SDK script", error);
 }
 
 if (onvo) {
-  onvo.pay({
-    onError : (data) => {
-      console.log('error', data);
-    }, 
-    onSuccess : (data) => {
-      console.log('success', data);
-    },
-    publicKey: 'public-key', 
-    paymentIntentId : "cl4de13uc457301lor2o0q9w1",
-  }).render('#container');
+	onvo.pay({
+		onError : (data) => {
+			console.log('error', data);
+		},
+		onSuccess : (data) => {
+			console.log('success', data);
+		},
+		publicKey: 'public-key',
+		paymentIntentId : "cl4de13uc457301lor2o0q9w1",
+	}).render('#container');
 }
 ```
 
@@ -113,42 +113,42 @@ if (onvo) {
 import { loadScript } from "@onvo/onvo-pay-js";
 
 loadScript()
-    .then((onvo) => {
-      onvo.pay({
-        onError : (data) => {
-          console.log('error', data);
-        }, 
-        onSuccess : (data) => {
-          console.log('success', data);
-        },
-        publicKey: 'public-key', 
-        paymentIntentId : "cl4de13uc457301lor2o0q9w1",    
-      }).render('#container');
-    })
-    .catch((error) => {
-        console.error("failed to load the PayPal JS SDK script", error);
-    });
+	.then((onvo) => {
+		onvo.pay({
+			onError : (data) => {
+				console.log('error', data);
+			},
+			onSuccess : (data) => {
+				console.log('success', data);
+			},
+			publicKey: 'public-key',
+			paymentIntentId : "cl4de13uc457301lor2o0q9w1",
+		}).render('#container');
+	})
+	.catch((error) => {
+		console.error("failed to load the PayPal JS SDK script", error);
+	});
 ```
 
 ### `without package manager`
 
 ```html
 <body>
-    <!-- Container for our ONVO component to render into -->
-    <div id="container"></div>
+<!-- Container for our ONVO component to render into -->
+<div id="container"></div>
 </body>
 
 <script>
     // Render the component and pass down props
     onvo.pay({
-      onError : (data) => {
-        console.log('error', data);
-      }, 
-      onSuccess : (data) => {
-        console.log('success', data);
-      },
-      publicKey: 'public-key', 
-      paymentIntentId : "cl4de13uc457301lor2o0q9w1",
+        onError : (data) => {
+            console.log('error', data);
+        },
+        onSuccess : (data) => {
+            console.log('success', data);
+        },
+        publicKey: 'public-key',
+        paymentIntentId : "cl4de13uc457301lor2o0q9w1",
     }).render('#container');
 </script>
 
@@ -167,16 +167,16 @@ const Pay = onvo.pay.driver("react", { React, ReactDOM });
 ...
 
 return (
-  <Pay 
-    onError ={(data) => {
-      console.log('error', data);
-    }}
-    onSuccess={(data) => {
-      console.log('success', data);
-    }}
-    publicKey="public-key"
-    paymentIntentId="cl4de13uc457301lor2o0q9w1"
-  />
+	<Pay
+		onError ={(data) => {
+			console.log('error', data);
+		}}
+		onSuccess={(data) => {
+			console.log('success', data);
+		}}
+		publicKey="public-key"
+		paymentIntentId="cl4de13uc457301lor2o0q9w1"
+	/>
 );
 ```
 
@@ -186,26 +186,26 @@ return (
 onvo.pay.driver("angular", window.angular);
 
 angular
-  .module("app", ["onvo-pay"])
-  .controller("appController", function ($scope) {
-    $scope.opts = {
-      onError : (data) => {
-	console.log('error', data);
-	return data;
-      },
-      onSuccess : (data) => {
-	console.log('success', data);
-        return data;
-      },
-      publicKey: 'public-key',
-      paymentIntentId : "cl4de13uc457301lor2o0q9w1",
-    };
-  });
+	.module("app", ["onvo-pay"])
+	.controller("appController", function ($scope) {
+		$scope.opts = {
+			onError : (data) => {
+				console.log('error', data);
+				return data;
+			},
+			onSuccess : (data) => {
+				console.log('success', data);
+				return data;
+			},
+			publicKey: 'public-key',
+			paymentIntentId : "cl4de13uc457301lor2o0q9w1",
+		};
+	});
 ```
 
 ```html
 <body ng-app="app" ng-controller="appController">
-  <onvo-pay props="opts"></onvo-pay>
+<onvo-pay props="opts"></onvo-pay>
 </body>
 ```
 
@@ -213,49 +213,49 @@ angular
 
 ```javascript
 (function () {
-  const Pay = onvo.pay.driver("angular2", ng.core);
-  const appComponent = ng.core
-    .Component({
-      selector: "my-app",
-      template:
-          <div id="app">
-            <pay [props]="{
-                onError: onError,
-                onSuccess: onSuccess,
-		publicKey: publicKey,
-		paymentIntentId: paymentIntentId
-            }"></pay>
-          </div>
-      ,
-    })
-    .Class({
-      constructor: function () {
-        this.onError = (function(data) {
-	  console.log(data);
-          return data;
-        }).bind(this);
-        this.onSuccess = (function(data) {
-	  console.log(data);
-          return data;
-        }).bind(this);
-	this.publicKey = 'public-key';
-	this.paymentIntentId = 'cl4de13uc457301lor2o0q9w1';
-      });
-    }});
-  const appModule = ng.core
-    .NgModule({
-      imports: [ng.platformBrowser.BrowserModule, Pay],
-      declarations: [appComponent],
-      bootstrap: [appComponent],
-    })
-    .Class({
-      constructor: function () {},
-    });
-  document.addEventListener("DOMContentLoaded", function () {
-    ng.platformBrowserDynamic
-      .platformBrowserDynamic()
-      .bootstrapModule(appModule);
-  });
+	const Pay = onvo.pay.driver("angular2", ng.core);
+	const appComponent = ng.core
+		.Component({
+			selector: "my-app",
+			template:
+				<div id="app">
+					<pay [props]="{
+					onError: onError,
+					onSuccess: onSuccess,
+					publicKey: publicKey,
+					paymentIntentId: paymentIntentId
+				}"></pay>
+</div>
+,
+})
+.Class({
+		constructor: function () {
+			this.onError = (function(data) {
+				console.log(data);
+				return data;
+			}).bind(this);
+			this.onSuccess = (function(data) {
+				console.log(data);
+				return data;
+			}).bind(this);
+			this.publicKey = 'public-key';
+			this.paymentIntentId = 'cl4de13uc457301lor2o0q9w1';
+		});
+}});
+const appModule = ng.core
+	.NgModule({
+		imports: [ng.platformBrowser.BrowserModule, Pay],
+		declarations: [appComponent],
+		bootstrap: [appComponent],
+	})
+	.Class({
+		constructor: function () {},
+	});
+document.addEventListener("DOMContentLoaded", function () {
+	ng.platformBrowserDynamic
+		.platformBrowserDynamic()
+		.bootstrapModule(appModule);
+});
 })();
 ```
 
