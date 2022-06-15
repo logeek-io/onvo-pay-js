@@ -45,17 +45,16 @@ or including the script
 ```javascript
 const {data, status} = await axios.post(
 	'https://api.dev.onvopay.com/v1/payment-intents',
-  {
+	{
 		currency: 'USD',
-    amount: 1000,
-    description: 'my first payment intent',
-  },
-  {
+		amount: 1000,
+		description: 'my first payment intent',
+	},
+	{
 		headers: {
-			Authorization:
-        'Bearer you_secret_key',
-    },
-  },
+			Authorization: 'Bearer you_secret_key',
+		},
+	},
 );
 
 if (status == 201) {
@@ -95,16 +94,16 @@ try {
 }
 
 if (onvo) {
-	onvo.pay({
-		onError : (data) => {
-			console.log('error', data);
-		}, 
-		onSuccess : (data) => {
-			console.log('success', data);
-		},
-		publicKey: 'public-key', 
+  onvo.pay({
+    onError : (data) => {
+      console.log('error', data);
+    }, 
+    onSuccess : (data) => {
+      console.log('success', data);
+    },
+    publicKey: 'public-key', 
     paymentIntentId : "cl4de13uc457301lor2o0q9w1",
-	}).render('#container');
+  }).render('#container');
 }
 ```
 
@@ -115,16 +114,16 @@ import { loadScript } from "@onvo/onvo-pay-js";
 
 loadScript()
     .then((onvo) => {
-			onvo.pay({
-		    onError : (data) => {
-			    console.log('error', data);
-		    },
-		    onSuccess : (data) => {
-			    console.log('success', data);
-		    },
-		    publicKey: 'public-key',
-		    paymentIntentId : "cl4de13uc457301lor2o0q9w1",
-	    }).render('#container');
+      onvo.pay({
+        onError : (data) => {
+          console.log('error', data);
+        }, 
+        onSuccess : (data) => {
+          console.log('success', data);
+        },
+        publicKey: 'public-key', 
+        paymentIntentId : "cl4de13uc457301lor2o0q9w1",    
+      }).render('#container');
     })
     .catch((error) => {
         console.error("failed to load the PayPal JS SDK script", error);
@@ -142,14 +141,14 @@ loadScript()
 <script>
     // Render the component and pass down props
     onvo.pay({
-        onError : (data) => {
-            console.log('error', data);
-        },
-        onSuccess : (data) => {
-            console.log('success', data);
-        },
-        publicKey: 'public-key',
-        paymentIntentId : "cl4de13uc457301lor2o0q9w1",
+      onError : (data) => {
+        console.log('error', data);
+      }, 
+      onSuccess : (data) => {
+        console.log('success', data);
+      },
+      publicKey: 'public-key', 
+      paymentIntentId : "cl4de13uc457301lor2o0q9w1",
     }).render('#container');
 </script>
 
@@ -170,10 +169,10 @@ const Pay = onvo.pay.driver("react", { React, ReactDOM });
 return (
   <Pay 
     onError ={(data) => {
-			console.log('error', data);
+      console.log('error', data);
     }}
     onSuccess={(data) => {
-	    console.log('success', data);
+      console.log('success', data);
     }}
     publicKey="public-key"
     paymentIntentId="cl4de13uc457301lor2o0q9w1"
@@ -187,19 +186,19 @@ return (
 onvo.pay.driver("angular", window.angular);
 
 angular
-	.module("app", ["onvo-pay"])
-	.controller("appController", function ($scope) {
-		$scope.opts = {
-			onError : (data) => {
-				console.log('error', data);
-				return data;
-			},
-			onSuccess : (data) => {
-				console.log('success', data);
+  .module("app", ["onvo-pay"])
+  .controller("appController", function ($scope) {
+    $scope.opts = {
+      onError : (data) => {
+	console.log('error', data);
+	return data;
+      },
+      onSuccess : (data) => {
+	console.log('success', data);
         return data;
-			},
-			publicKey: 'public-key',
-			paymentIntentId : "cl4de13uc457301lor2o0q9w1",
+      },
+      publicKey: 'public-key',
+      paymentIntentId : "cl4de13uc457301lor2o0q9w1",
     };
   });
 ```
@@ -221,8 +220,10 @@ angular
       template:
           <div id="app">
             <pay [props]="{
-                createOrder: createOrder,
-                onApprove: onApprove
+                onError: onError,
+                onSuccess: onSuccess,
+		publicKey: publicKey,
+		paymentIntentId: paymentIntentId
             }"></pay>
           </div>
       ,
@@ -230,15 +231,15 @@ angular
     .Class({
       constructor: function () {
         this.onError = (function(data) {
-					console.log(data);
+	  console.log(data);
           return data;
         }).bind(this);
         this.onSuccess = (function(data) {
-					console.log(data);
+	  console.log(data);
           return data;
         }).bind(this);
-				this.publicKey = 'public-key';
-				this.paymentIntentId = 'cl4de13uc457301lor2o0q9w1';
+	this.publicKey = 'public-key';
+	this.paymentIntentId = 'cl4de13uc457301lor2o0q9w1';
       });
     }});
   const appModule = ng.core
@@ -262,7 +263,7 @@ angular
 
 ```html
 <div id="container">
-  <app></app>
+    <app></app>
 </div>
 
 <script>
@@ -283,10 +284,10 @@ angular
 
         computed: {
             onError: function () {
-							return (data) => {
-								console.log(data);
-								return data;
-              }
+                return (data) => {
+                    console.log(data);
+                    return data;
+                }
             },
             onSuccess: function () {
                 return (data) => {
@@ -295,7 +296,7 @@ angular
                 }
             },
             publicKey: function () {
-							return 'public-key';
+                return 'public-key';
             },
             paymentIntentId: function () {
                 return 'cl4de13uc457301lor2o0q9w1';
