@@ -87,6 +87,7 @@ if (status == 201) {
   // subscription id to pass down to the front-end
   console.log(data.id);
 }
+```
 
 For now we just support `CRC` or `USD` as currencies, and remember to pass the payment intent amount as cents.
 
@@ -153,7 +154,7 @@ loadScript().then((onvo) => {
     customerId: "cl40wvnby1653akslv93ktgdk",
   }).render('#container');
 }).catch((error) => {
-  console.error("failed to load the PayPal JS SDK script", error);
+  console.error("failed to load the ONVO JS SDK script", error);
 });
 ```
 
