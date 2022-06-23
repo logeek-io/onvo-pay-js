@@ -1,3 +1,10 @@
+## [1.2.4](https://github.com/logeek-io/onvo-pay-js-sdk/compare/v1.2.3...v1.2.4) (2022-06-23)
+
+
+### Bug Fixes
+
+* **readme:** fix documentation ([ff77e96](https://github.com/logeek-io/onvo-pay-js-sdk/commit/ff77e9633d80d9e13bbbfcc53685c7939fae927c))
+
 ## [1.2.3](https://github.com/logeek-io/onvo-pay-js-sdk/compare/v1.2.2...v1.2.3) (2022-06-15)
 
 
