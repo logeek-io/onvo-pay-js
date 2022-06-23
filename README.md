@@ -35,7 +35,7 @@ with yarn
 or including the script
 
 ```html
-  <script src="https://onvo-pay-widget.vercel.app/sdk.js" async></script>
+  <script src="https://onvo-pay-widget.vercel.app/sdk.js"></script>
 ```
 
 ## Prerequisites
@@ -68,31 +68,31 @@ if (status == 201) {
 
 ```javascript
 const {data, status} = await axios.post('[https://api.dev.onvopay.com/v1/payment-intents](https://api.dev.onvopay.com/v1/subscriptions)',
-	{
-		"customerId": "cl40wvnby1653akslv93ktgdk",
-		"paymentBehavior": "allow_incomplete",
-		"items": [{
-			"priceId" : "cl4ojmusz299201ldilvdfs8y",
-			"quantity": 1
-		}]
-	},
-	{
-		headers: {
-			Authorization: 'Bearer you_secret_key',
-		},
-	},
+  {
+    "customerId": "cl40wvnby1653akslv93ktgdk",
+    "paymentBehavior": "allow_incomplete",
+    "items": [{
+        "priceId" : "cl4ojmusz299201ldilvdfs8y",
+        "quantity": 1
+    }]
+  },
+  {
+    headers: {
+      Authorization: 'Bearer you_secret_key',
+    },
+  },
 );
 
 if (status == 201) {
-	// subscription id to pass down to the front-end
-	console.log(data.id);
+  // subscription id to pass down to the front-end
+  console.log(data.id);
 }
 
 For now we just support `CRC` or `USD` as currencies, and remember to pass the payment intent amount as cents.
 
 -----
 
-	read more information about our API [here](https://onvo-api.webflow.io/)
+read more information about our API [here](https://onvo-api.webflow.io/)
 
 
 ## Usage
@@ -107,7 +107,7 @@ returns a Promise that resolves with `window.onvo` after the JS SDK is finished 
 
 #### Async/Await
 
-	```javascript
+```javascript
 import { loadScript } from "@onvo/onvo-pay-js";
 
 let onvo;
@@ -140,20 +140,20 @@ if (onvo) {
 import { loadScript } from "@onvo/onvo-pay-js";
 
 loadScript().then((onvo) => {
-	onvo.pay({
-		onError : (data) => {
-			console.log('error', data);
-		},
-		onSuccess : (data) => {
-			console.log('success', data);
-		},
-		publicKey: 'public-key',
-		paymentIntentId : "cl4de13uc457301lor2o0q9w1",
-		paymentType: "one_time",
-		customerId: "cl40wvnby1653akslv93ktgdk",
-	}).render('#container');
+  onvo.pay({
+    onError : (data) => {
+      console.log('error', data);
+    },
+    onSuccess : (data) => {
+      console.log('success', data);
+    },
+    publicKey: 'public-key',
+    paymentIntentId : "cl4de13uc457301lor2o0q9w1",
+    paymentType: "one_time",
+    customerId: "cl40wvnby1653akslv93ktgdk",
+  }).render('#container');
 }).catch((error) => {
-	console.error("failed to load the PayPal JS SDK script", error);
+  console.error("failed to load the PayPal JS SDK script", error);
 });
 ```
 
@@ -169,15 +169,15 @@ loadScript().then((onvo) => {
     // Render the component and pass down props
     onvo.pay({
         onError : (data) => {
-            console.log('error', data);
-        },
-        onSuccess : (data) => {
-            console.log('success', data);
-        },
-        publicKey: 'public-key',
-        paymentIntentId : "cl4de13uc457301lor2o0q9w1",
-        paymentType: "one_time",
-        customerId: "cl40wvnby1653akslv93ktgdk", // Only required for subscriptions
+      console.log('error', data);
+    },
+    onSuccess : (data) => {
+      console.log('success', data);
+    },
+    publicKey: 'public-key',
+    paymentIntentId : "cl4de13uc457301lor2o0q9w1",
+    paymentType: "one_time",
+    customerId: "cl40wvnby1653akslv93ktgdk", // Only required for subscriptions
     }).render('#container');
 </script>
 
@@ -194,16 +194,16 @@ loadScript().then((onvo) => {
 <script>
     // Render the component and pass down props
     onvo.pay({
-        onError : (data) => {
-            console.log('error', data);
-        },
-        onSuccess : (data) => {
-            console.log('success', data);
-        },
-        publicKey: 'public-key',
-        subscriptionId : "cl4de13uc457301lor2o0q9w1",
-        paymentType: "subscription",
-        customerId: "cl40wvnby1653akslv93ktgdk",
+      onError : (data) => {
+        console.log('error', data);
+      },
+      onSuccess : (data) => {
+        console.log('success', data);
+      },
+      publicKey: 'public-key',
+      subscriptionId : "cl4de13uc457301lor2o0q9w1",
+      paymentType: "subscription",
+      customerId: "cl40wvnby1653akslv93ktgdk",
     }).render('#container');
 </script>
 
@@ -230,9 +230,9 @@ return (
 			console.log('success', data);
 		}}
 		publicKey="public-key"
-		paymentType: "one_time",
-    paymentIntentId="cl4de13uc457301lor2o0q9w1"
-	    />
+		paymentType="one_time"
+		paymentIntentId="cl4de13uc457301lor2o0q9w1"
+	/>
 );
 ```
 
