@@ -23,45 +23,68 @@
 To get started, install onvo-pay-js with npm
 
 ```sh
-npm install @onvo/onvo-pay-js
+  npm install @onvo/onvo-pay-js
 ```
 
 with yarn
 
 ```sh
-npm yarn @onvo/onvo-pay-js
+  npm yarn @onvo/onvo-pay-js
 ```
 
 or including the script
 
 ```html
-<script src="https://onvo-pay-widget.vercel.app/sdk.js" async></script>
+  <script src="https://onvo-pay-widget.vercel.app/sdk.js" async></script>
 ```
 
 ## Prerequisites
 - from you account dashboard get you `Secret` and `Public` Key
 - in order to get the `paymentIntentId` you need to create one by doing a server side API request as follows:
 
+## one_time
+
 ```javascript
-const {data, status} = await axios.post(
-	'https://api.dev.onvopay.com/v1/payment-intents',
-	{
-		currency: 'USD',
-		amount: 1000,
-		description: 'my first payment intent',
-	},
-	{
-		headers: {
-			Authorization: 'Bearer you_secret_key',
-		},
-	},
+const {data, status} = await axios.post('https://api.dev.onvopay.com/v1/payment-intents',
+  {
+    currency: 'USD',
+    amount: 1000,
+    description: 'my first payment intent',
+  },
+  {
+    headers: {
+      Authorization: 'Bearer you_secret_key',
+    },
+  },
 );
 
 if (status == 201) {
-	// Payment intent id id to pass down to the front-end
-	console.log(data.id);
+  // Payment intent id id to pass down to the front-end
+  console.log(data.id);
 }
 ```
+
+## subscription
+const {data, status} = await axios.post('https://api.dev.onvopay.com/v1/payment-intents',
+{
+"customerId": "cl40wvnby1653akslv93ktgdk",
+"paymentBehavior": "allow_incomplete",
+"items": [{
+"priceId" : "cl4ojmusz299201ldilvdfs8y",
+"quantity": 1
+}]
+},
+{
+headers: {
+Authorization: 'Bearer you_secret_key',
+},
+},
+);
+
+if (status == 201) {
+// Payment intent id id to pass down to the front-end
+console.log(data.id);
+}
 
 For now we just support `CRC` or `USD` as currencies, and remember to pass the payment intent amount as cents.
 
@@ -88,22 +111,24 @@ import { loadScript } from "@onvo/onvo-pay-js";
 let onvo;
 
 try {
-	onvo = await loadScript();
+    onvo = await loadScript();
 } catch (error) {
-	console.error("failed to load the ONVO JS SDK script", error);
+    console.error("failed to load the ONVO JS SDK script", error);
 }
 
 if (onvo) {
-	onvo.pay({
-		onError : (data) => {
-			console.log('error', data);
-		},
-		onSuccess : (data) => {
-			console.log('success', data);
-		},
-		publicKey: 'public-key',
-		paymentIntentId : "cl4de13uc457301lor2o0q9w1",
-	}).render('#container');
+  onvo.pay({
+    onError : (data) => {
+      console.log('error', data);
+    },
+    onSuccess : (data) => {
+      console.log('success', data);
+    },
+    publicKey: 'public-key',
+    paymentIntentId : "cl4de13uc457301lor2o0q9w1",
+    paymentType: "one_time",
+    customerId: "cl40wvnby1653akslv93ktgdk",
+  }).render('#container');
 }
 ```
 
@@ -112,25 +137,25 @@ if (onvo) {
 ```javascript
 import { loadScript } from "@onvo/onvo-pay-js";
 
-loadScript()
-	.then((onvo) => {
-		onvo.pay({
-			onError : (data) => {
-				console.log('error', data);
-			},
-			onSuccess : (data) => {
-				console.log('success', data);
-			},
-			publicKey: 'public-key',
-			paymentIntentId : "cl4de13uc457301lor2o0q9w1",
-		}).render('#container');
-	})
-	.catch((error) => {
-		console.error("failed to load the PayPal JS SDK script", error);
-	});
+loadScript().then((onvo) => {
+  onvo.pay({
+    onError : (data) => {
+      console.log('error', data);
+    },
+    onSuccess : (data) => {
+      console.log('success', data);
+    },
+    publicKey: 'public-key',
+    paymentIntentId : "cl4de13uc457301lor2o0q9w1",
+    paymentType: "one_time",
+    customerId: "cl40wvnby1653akslv93ktgdk",
+  }).render('#container');
+}).catch((error) => {
+  console.error("failed to load the PayPal JS SDK script", error);
+});
 ```
 
-### `without package manager`
+### `without package manager one_time`
 
 ```html
 <body>
@@ -142,13 +167,41 @@ loadScript()
     // Render the component and pass down props
     onvo.pay({
         onError : (data) => {
-            console.log('error', data);
-        },
-        onSuccess : (data) => {
-            console.log('success', data);
-        },
-        publicKey: 'public-key',
-        paymentIntentId : "cl4de13uc457301lor2o0q9w1",
+      console.log('error', data);
+    },
+    onSuccess : (data) => {
+      console.log('success', data);
+    },
+    publicKey: 'public-key',
+    paymentIntentId : "cl4de13uc457301lor2o0q9w1",
+    paymentType: "one_time",
+    customerId: "cl40wvnby1653akslv93ktgdk", // Only required for subscriptions
+    }).render('#container');
+</script>
+
+```
+
+### `without package manager subscription`
+
+```html
+<body>
+<!-- Container for our ONVO component to render into -->
+<div id="container"></div>
+</body>
+
+<script>
+    // Render the component and pass down props
+    onvo.pay({
+      onError : (data) => {
+        console.log('error', data);
+      },
+      onSuccess : (data) => {
+        console.log('success', data);
+      },
+      publicKey: 'public-key',
+      subscriptionId : "cl4de13uc457301lor2o0q9w1",
+      paymentType: "subscription",
+      customerId: "cl40wvnby1653akslv93ktgdk",
     }).render('#container');
 </script>
 
@@ -167,16 +220,17 @@ const Pay = onvo.pay.driver("react", { React, ReactDOM });
 ...
 
 return (
-	<Pay
-		onError ={(data) => {
-			console.log('error', data);
-		}}
-		onSuccess={(data) => {
-			console.log('success', data);
-		}}
-		publicKey="public-key"
-		paymentIntentId="cl4de13uc457301lor2o0q9w1"
-	/>
+  <Pay
+    onError ={(data) => {
+      console.log('error', data);
+    }}
+    onSuccess={(data) => {
+      console.log('success', data);
+    }}
+    publicKey="public-key"
+    paymentType: "one_time",
+    paymentIntentId="cl4de13uc457301lor2o0q9w1"
+  />
 );
 ```
 
